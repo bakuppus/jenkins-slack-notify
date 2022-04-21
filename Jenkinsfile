@@ -18,7 +18,7 @@ pipeline {
   echo 'scm : the previous commit id is ' +scmVars.GIT_PREVIOUS_COMMIT
 
                      
-                     def COMMITTER_EMAIL = bat (
+                     def COMMITTER_EMAIL = (
                 script: "git --no-pager show -s --format=%%ae",
                   returnStdout: true
               ).split('\r\n')[2].trim()
