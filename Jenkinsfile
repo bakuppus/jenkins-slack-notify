@@ -7,20 +7,26 @@ pipeline {
 
     stages {
         
-        stage ('GitInfo') {
-            steps {
-            checkout scm
-                   }   
-            }
-       
-        stage ('branch') {
-            steps { 
-                scripts {
-                    def branch = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
 
-                }
-          }
-        }     
+        stage('Checkout code') {
+            steps {
+                 script {
+
+  def scmVars = checkout scm
+  echo 'scm : the commit id is ' +scmVars.GIT_COMMIT
+  echo 'scm : the commit branch  is ' +scmVars.GIT_BRANCH
+  echo 'scm : the previous commit id is ' +scmVars.GIT_PREVIOUS_COMMIT
+  def commitEmail = sh(returnStdout: true, script: "git --no-pager show -sformat=\'%ae\'")
+  echo " the commiter email is'${commitEmail}'"
+  def commitName = sh(returnStdout: true, script: "git --no-pager show -s format=\'%an\'")
+  echo " the commiter name is'${commitName}'"
+
+   }
+  }
+}
+        
+        
+    
         
         
         stage('Build star Notify') {
@@ -32,9 +38,7 @@ pipeline {
         stage(Hello) {
             steps {
                 sh "echo Hello"
-                echo $GIT_BRANCH
-                echo $GIT_URL
-                            
+                           
             }
         }
     }
