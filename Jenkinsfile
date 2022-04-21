@@ -5,16 +5,17 @@ pipeline {
 
     stages {
         
-        stage ('Checkout') {
+        stage ('GitInfo') {
             steps {
             checkout scm
                 
-                  stage("GIT INFO"){
     echo ":::::::::::GIT_SHORT_COMMIT::::::::::::::::::::::::"
 
     GIT_SHORT_COMMIT = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
     //echo in jenkins console
     echo GIT_SHORT_COMMIT
+                
+                
     //wanted to send these info to build artifacts, append to any file
     sh("echo ${GIT_SHORT_COMMIT} > GIT_SHORT_COMMIT")
 
