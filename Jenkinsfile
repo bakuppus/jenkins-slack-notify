@@ -17,8 +17,12 @@ pipeline {
   echo 'scm : the commit branch  is ' +scmVars.GIT_BRANCH
   echo 'scm : the previous commit id is ' +scmVars.GIT_PREVIOUS_COMMIT
                      
- def lastCommiterEmail = sh(returnStdout: true, script: 'git log --format="%ae" | head -1').trim()
-                     echo 'last commit email is'  +lastCommiterEmail.GIT_AUTHOR
+
+                     
+  def commitEmail = sh(returnStdout: true, script: 'git log --format="%ae" | head -1').trim()
+  echo " the commiter email is'${commitEmail}'"
+  def commitName = sh(returnStdout: true, script: 'git log --format="%an" | head -1').trim()
+  echo " the commiter name is'${commitName}'"
 
 
    }
