@@ -15,14 +15,14 @@ pipeline {
   def scmVars = checkout scm
   echo 'scm : the commit id is ' +scmVars.GIT_COMMIT
   echo 'scm : the commit branch  is ' +scmVars.GIT_BRANCH
-  echo 'scm : the previous commit id is ' +scmVars.GIT_PREVIOUS_COMMIT
-                     
-
-                     
-  def commitEmail = sh(returnStdout: true, script: 'git log --format="%ae" | head -1').trim()
-  echo " the commiter email is'${commitEmail}'"
-  def commitName = sh(returnStdout: true, script: 'git log --format="%an" | head -1').trim()
-  echo " the commiter name is'${commitName}'"
+  echo 'scm : the previous commit id is ' +scmVars.GIT_PREVIOUS_COMMIT                                      
+  def GIT_COMMITTER_EMAIL = sh(returnStdout: true, script: 'git log --format="%ae" | head -1').trim()
+  sh("echo ${GIT_COMMITTER_EMAIL} > GIT_COMMITTER_NAME-${GIT_COMMITTER_NAME}")
+  echo "the commiter email is '${GIT_COMMITTER_EMAIL}'"
+  
+  def GIT_COMMITTER_NAME = sh(returnStdout: true, script: 'git log --format="%an" | head -1').trim()
+  sh("echo ${GIT_COMMITTER_NAME} > GIT_COMMITTER_NAME-${GIT_COMMITTER_NAME}")
+  echo " the commiter name is'${GIT_COMMITTER_NAME}'"
 
 
    }
@@ -45,8 +45,8 @@ pipeline {
                 echo "${GIT_COMMIT}"
                 echo "${GIT_BRANCH}"
                 echo "${GIT_PREVIOUS_COMMIT}"
-                echo "${commitEmail}"
-                echo "${commitName}"
+                echo "${GIT_COMMITTER_EMAIL}"
+                echo "${GIT_COMMITTER_NAME}"
 
                            
             }
