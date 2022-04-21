@@ -8,14 +8,29 @@ pipeline {
         stage ('Checkout') {
             steps {
             checkout scm
-                  def scmVars = checkout scm
-                  echo 'scm : the commit id is ' +scmVars.GIT_COMMIT
-                  echo 'scm : the commit branch  is ' +scmVars.GIT_BRANCH
-                  echo 'scm : the previous commit id is ' +scmVars.GIT_PREVIOUS_COMMIT
-                  def commitEmail = sh(returnStdout: true, script: "git --no-pager show -sformat=\'%ae\'")
-                  echo " the commiter email is'${commitEmail}'"
-                  def commitName = sh(returnStdout: true, script: "git --no-pager show -s format=\'%an\'")
-                  echo " the commiter name is'${commitName}'"
+                
+                  stage("GIT INFO"){
+    echo ":::::::::::GIT_SHORT_COMMIT::::::::::::::::::::::::"
+
+    GIT_SHORT_COMMIT = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+    //echo in jenkins console
+    echo GIT_SHORT_COMMIT
+    //wanted to send these info to build artifacts, append to any file
+    sh("echo ${GIT_SHORT_COMMIT} > GIT_SHORT_COMMIT")
+
+    //Similar proceed for other git info's 
+    echo ":::::::::::GIT_COMMITTER_EMAIL::::::::::::::::::::::::"
+
+    GIT_COMMITTER_EMAIL = sh(returnStdout: true, script: "git show -s --pretty=%ae").trim()
+    sh("echo ${GIT_COMMITTER_EMAIL} > GIT_COMMITTER_EMAIL-${GIT_COMMITTER_EMAIL}")
+
+
+
+    echo ":::::::::::GIT_COMMITTER_NAME::::::::::::::::::::::::"
+
+    GIT_COMMITTER_NAME = sh(returnStdout: true, script: "git show -s --pretty=%an").trim()
+    sh("echo ${GIT_COMMITTER_NAME} > GIT_COMMITTER_NAME-${GIT_COMMITTER_NAME}")
+
             }   
     }
        
