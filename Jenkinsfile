@@ -17,13 +17,9 @@ pipeline {
   echo 'scm : the commit branch  is ' +scmVars.GIT_BRANCH
   echo 'scm : the previous commit id is ' +scmVars.GIT_PREVIOUS_COMMIT
 
-                     
-                     def COMMITTER_EMAIL = (
-                script: "git --no-pager show -s --format=%%ae",
-                  returnStdout: true
-              ).split('\r\n')[2].trim()
-
-    echo "The last commit was written by ${COMMITTER_EMAIL}"
+               env.GIT_COMMIT_MSG = sh (script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
+                env.GIT_AUTHOR = sh (script: 'git log -1 --pretty=%cn ${GIT_COMMIT}', returnStdout: true).trim()
+            }
 
    }
   }
