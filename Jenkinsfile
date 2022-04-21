@@ -13,6 +13,7 @@ pipeline {
         stage(Hello) {
             steps {
                 sh "echo Hello"
+                echo "echo $BRANCH_NAME"                
             }
         }
     }
