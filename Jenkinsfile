@@ -13,7 +13,10 @@ pipeline {
         stage(Hello) {
             steps {
                 sh "echo Hello"
-                echo "echo $BRANCH_NAME"                
+                script {
+                def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+                echo ${BRANCH}
+                }                             
             }
         }
     }
