@@ -8,7 +8,7 @@ pipeline {
     stages {
         
 
-        stage('Checkout code') {
+        stage('GitInfo') {
             steps {
                  script {
 
@@ -34,7 +34,7 @@ pipeline {
         
         stage('Build star Notify') {
             steps {
-             slackSend channel: 'chopt-chatops', iconEmoji: '', color: "#439FE0", message: "chopt_ios:   Build Started - ${env.BRANCH_NAME} ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", teamDomain: 'ymedialabs', tokenCredentialId: 'chopt-chatops-id', username: 'jenkins'
+             slackSend channel: 'chopt-chatops', iconEmoji: '', color: "#439FE0", message: "chopt_ios:   Build Started - ${GIT_BRANCH} ${GIT_COMMIT} ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) ${GIT_COMMITTER_NAME} ", teamDomain: 'ymedialabs', tokenCredentialId: 'chopt-chatops-id', username: 'jenkins'
                    }   
                 }
                 
