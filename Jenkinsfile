@@ -9,14 +9,9 @@ pipeline {
             steps {
             checkout scm
                 
- def jobUserId, jobUserName
-//then somewhere
-wrap([$class: 'BuildUser']) {
-    jobUserId = "${BUILD_USER_ID}"
-    jobUserName = "${BUILD_USER}"
-}
-//then
-println("Started By: ${jobUserName}")
+               wrap([$class: 'BuildUser']) {
+              def user = env.BUILD_USER_ID
+  }
 
             }   
     }
