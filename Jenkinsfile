@@ -10,9 +10,17 @@ pipeline {
         stage ('GitInfo') {
             steps {
             checkout scm
-      }   
-    }
+                   }   
+            }
        
+        stage ('branch') {
+            script {
+              def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+              echo ${BRANCH}
+          }
+        }
+        
+        
         stage('Build star Notify') {
             steps {
              slackSend channel: 'chopt-chatops', iconEmoji: '', color: "#439FE0", message: "chopt_ios:   Build Started - ${env.BRANCH_NAME} ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", teamDomain: 'ymedialabs', tokenCredentialId: 'chopt-chatops-id', username: 'jenkins'
