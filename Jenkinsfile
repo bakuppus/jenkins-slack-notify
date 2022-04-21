@@ -3,17 +3,17 @@ pipeline {
         label 'Mac_Mini'
     }
 
+    
+  wrap([$class: 'BuildUser']) {
+    def user = env.BUILD_USER_ID
+  }
+    
     stages {
         
         stage ('GitInfo') {
             steps {
             checkout scm
-                
-               wrap([$class: 'BuildUser']) {
-              def user = env.BUILD_USER_ID
-  }
-
-            }   
+      }   
     }
        
         stage('Build star Notify') {
