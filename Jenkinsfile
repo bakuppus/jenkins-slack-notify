@@ -53,20 +53,20 @@ pipeline {
     }
     post {
         success {
-        slackSend channel: 'chopt-chatops', color: 'good', iconEmoji: '', message: "chopt_ios:   Build deployed successfully - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", teamDomain: 'ymedialabs', tokenCredentialId: 'chopt-chatops-id', username: 'jenkins'
+        slackSend channel: 'chopt-chatops', color: 'good', iconEmoji: '', message: "chopt_ios:   Build deployed successfully - Commiter: ${GIT_COMMITTER_NAME}  Branch: ${GIT_BRANCH} Job: ${env.JOB_NAME} Build No: ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) ", teamDomain: 'ymedialabs', tokenCredentialId: 'chopt-chatops-id', username: 'jenkins'
         }  
          
          
         failure {
-        slackSend failOnError: 'true', channel: 'chopt-chatops', color: 'danger', iconEmoji: '', message: "chopt_ios:   Build failed  - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", teamDomain: 'ymedialabs', tokenCredentialId: 'chopt-chatops-id', username: 'jenkins'
+        slackSend failOnError: 'true', channel: 'chopt-chatops', color: 'danger', iconEmoji: '', message: "chopt_ios:   Build failed  - Commiter: ${GIT_COMMITTER_NAME}  Branch: ${GIT_BRANCH} Job: ${env.JOB_NAME} Build No: ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) ", teamDomain: 'ymedialabs', tokenCredentialId: 'chopt-chatops-id', username: 'jenkins'
         } 
          
         unstable {
-        slackSend channel: 'chopt-chatops', iconEmoji: '', color: 'warning',  message: "chopt_ios:   Build unstable - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", teamDomain: 'ymedialabs', tokenCredentialId: 'chopt-chatops-id', username: 'jenkins'                    
+        slackSend channel: 'chopt-chatops', iconEmoji: '', color: 'warning',  message: "chopt_ios:   Build unstable - Commiter: ${GIT_COMMITTER_NAME}  Branch: ${GIT_BRANCH} Job: ${env.JOB_NAME} Build No: ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) ", teamDomain: 'ymedialabs', tokenCredentialId: 'chopt-chatops-id', username: 'jenkins'                    
         }
         
         aborted {
-        slackSend channel: 'chopt-chatops', iconEmoji: '', color: 'warning',  message: "chopt_ios:   Build aborted - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", teamDomain: 'ymedialabs', tokenCredentialId: 'chopt-chatops-id', username: 'jenkins'                    
+        slackSend channel: 'chopt-chatops', iconEmoji: '', color: 'warning',  message: "chopt_ios:   Build aborted - Commiter: ${GIT_COMMITTER_NAME}  Branch: ${GIT_BRANCH} Job: ${env.JOB_NAME} Build No: ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) ", teamDomain: 'ymedialabs', tokenCredentialId: 'chopt-chatops-id', username: 'jenkins'                    
         }
 
         cleanup {
