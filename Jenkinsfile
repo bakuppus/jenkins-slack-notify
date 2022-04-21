@@ -15,7 +15,10 @@ pipeline {
        
         stage ('branch') {
             steps { 
-           echo $GIT_BRANCH
+                scripts {
+                    def branch = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+
+                }
           }
         }     
         
