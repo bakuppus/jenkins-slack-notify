@@ -7,8 +7,7 @@ pipeline {
         
         stage ('Checkout') {
             steps {
-            checkout scm
-            scripts {
+
   def scmVars = checkout scm
   echo 'scm : the commit id is ' +scmVars.GIT_COMMIT
   echo 'scm : the commit branch  is ' +scmVars.GIT_BRANCH
@@ -19,7 +18,7 @@ pipeline {
   echo " the commiter name is'${commitName}'"
             }   
     }
-        }
+
         
         stage('Build star Notify') {
             steps {
