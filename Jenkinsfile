@@ -42,11 +42,11 @@ pipeline {
         stage(Hello) {
             steps {
                 sh "echo Hello"
-                echo ${GIT_COMMIT}
-                echo ${GIT_BRANCH}
-                echo ${GIT_PREVIOUS_COMMIT}
-                echo ${commitEmail}
-                echo ${commitName}
+                echo "${GIT_COMMIT}"
+                echo "${GIT_BRANCH}"
+                echo "${GIT_PREVIOUS_COMMIT}"
+                echo "${commitEmail}"
+                echo "${commitName}"
 
                            
             }
