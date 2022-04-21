@@ -6,6 +6,7 @@ pipeline {
     stages {
         
         stage ('Checkout') {
+            steps {
             checkout scm
             scripts {
   def scmVars = checkout scm
@@ -18,6 +19,7 @@ pipeline {
   echo " the commiter name is'${commitName}'"
             }   
     }
+        }
         
         stage('Build star Notify') {
             steps {
