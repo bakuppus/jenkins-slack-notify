@@ -4,6 +4,16 @@ pipeline {
     }
 
     stages {
+        
+        stage ('Checkout') {
+
+        scmInfo = checkout scm
+
+        /*...*/
+        echo "scm : ${scmInfo}"
+        echo "${scmInfo.GIT_COMMIT}"
+    }
+        
         stage('Build star Notify') {
             steps {
              slackSend channel: 'chopt-chatops', iconEmoji: '', color: "#439FE0", message: "chopt_ios:   Build Started - ${env.BRANCH_NAME} ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", teamDomain: 'ymedialabs', tokenCredentialId: 'chopt-chatops-id', username: 'jenkins'
@@ -13,10 +23,9 @@ pipeline {
         stage(Hello) {
             steps {
                 sh "echo Hello"
-                script {
-                def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-                echo ${BRANCH}
-                }                             
+                echo $GIT_BRANCH
+                echo $GIT_URL
+                            
             }
         }
     }
