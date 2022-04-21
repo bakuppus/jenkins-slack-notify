@@ -17,11 +17,11 @@ pipeline {
   echo 'scm : the commit branch  is ' +scmVars.GIT_BRANCH
   echo 'scm : the previous commit id is ' +scmVars.GIT_PREVIOUS_COMMIT                                      
   def commitEmail = sh(returnStdout: true, script: 'git log --format="%ae" | head -1').trim()
-  sh("echo ${commitEmail} > GIT_COMMITTER_NAME-${GIT_COMMITTER_NAME}")
+  sh (GIT_COMMITTER_EMAIL = "${commitEmail}")
   echo "the commiter email is '${GIT_COMMITTER_EMAIL}'"
   
   def commitName = sh(returnStdout: true, script: 'git log --format="%an" | head -1').trim()
-  sh("echo ${commitName} > GIT_COMMITTER_NAME-${GIT_COMMITTER_NAME}")
+  sh (GIT_COMMITTER_NAME = "${commitName}")
   echo " the commiter name is'${GIT_COMMITTER_NAME}'"
 
 
